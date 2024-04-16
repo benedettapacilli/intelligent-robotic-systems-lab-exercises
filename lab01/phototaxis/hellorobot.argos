@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+ 
+<argos-configuration>
+ 
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="0" />
+    <experiment length="0"
+                ticks_per_second="10"
+     />
+<!--    You may want to set the seed of the RNG by: random_seed = "1" (or any n>0) in experiment  -->
+<!-- 		If you don't do this, the RNG is initialised by taking the CPU time -->
+  </framework>
+  
+ 
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+ 
+    <lua_controller id="lua">
+      <actuators>
+        <differential_steering implementation="default" noise_level="0.0"/>
+				<leds implementation="default" medium="leds" />
+      </actuators>
+      <sensors>
+        <differential_steering implementation="default" noise_level="0.0" />
+        <footbot_proximity implementation="default" show_rays="false" noise_level="0.0" />
+        <footbot_light implementation="rot_z_only" show_rays="false" noise_level="0.0" />
+				<footbot_motor_ground implementation="rot_z_only" noise_level="0.0" />
+				<positioning implementation="default" noise_level="0.0" />
+      </sensors>
+      <params script="hellorobot.lua" />
+    </lua_controller>
+ 
+  </controllers>
+ 
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="4, 4, 1" center="0,0,0.5" positional_grid_size="8,8,1">
+	<floor id="f" source="image" path="four_spots.png" />
+    <box id="bn" size="0.1, 4, 0.2" movable="false">
+      <body position="1.9, 0, 0"  orientation="0,0,0" />
+    </box>
+    <box id="bs" size="0.1, 4, 0.2" movable="false">
+      <body position="-1.9,0,0" orientation="0,0,0" />
+    </box>
+    <box id="be" size="4, 0.1, 0.2" movable="false">
+      <body position="0,-1.9,0" orientation="0,0,0" />
+    </box>
+    <box id="bw" size="4, 0.1, 0.2" movable="false">
+      <body position="0,1.9,0" orientation="0,0,0" />
+    </box>
+ 
+    <light id="light"
+           position="0,0,0.5"
+           orientation="0,0,0"
+           color="yellow"
+           intensity="1"
+           medium="leds"/>
+
+<!--
+    <light id="light1"
+           position="1,0.7,0.5"
+           orientation="0,0,0"
+   	       color="yellow"
+           intensity="1"
+           medium="leds"/>
+
+    <light id="light2"
+            position="-1.5,-1.5,0.5"
+            orientation="0,0,0"
+            color="yellow"
+            intensity="1"
+            medium="leds"/>
+            -->
+ <!--
+    <distribute>
+      <position method="uniform" min="-2,-2,0" max="2,2,0" />
+      <orientation method="uniform" min="0,0,0" max="360,0,0" />
+      <entity quantity="5" max_trials="100">
+        <box id="o" size="0.2, 0.2, 0.2" movable="false" />
+      </entity>
+    </distribute>
+    -->
+    
+    
+<!--     Place the robot in a given precise position -->
+<!--    <foot-bot id="fb">
+      <controller config="lua" />
+      <body position="0.2,0.3,0" orientation="0,0,0" />
+    </foot-bot>-->
+
+
+<!--     If you want to place the robot(s) in a random position you may want to use this piece of code -->
+<!-- 	The number of robots can be specificed by changing the field quantity in entity -->
+    <distribute>
+      <position method="uniform" min="-1.9,-1.9,0" max="1.9,1.9,0" />
+      <orientation method="uniform" min="0,0,0" max="360,0,0" />
+      <entity quantity="5" max_trials="100">
+        <foot-bot id="fb">
+          <controller config="lua" />
+        </foot-bot>
+      </entity>
+    </distribute>
+
+
+  </arena>
+ 
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d" />
+  </physics_engines>
+ 
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+    <led id="leds" />
+  </media>
+
+	
+  <!-- ****************** -->
+  <!-- * Visualization * -->
+  <!-- ****************** -->
+  <visualization>
+    <qt-opengl lua_editor="false">
+		<camera>
+<!--            <placements>
+                <placement index="0" position="-2.0767,0.015,2.74921" look_at="-1.59254,0.015,1.87423" lens_focal_length="20" />
+            </placements>-->
+					<placement idx="0" position="-2.0767,0.015,2.74921" look_at="-1.59254,0.015,1.87423" lens_focal_length="20" />
+			</camera>
+    </qt-opengl>
+  </visualization>
+ 
+</argos-configuration>
