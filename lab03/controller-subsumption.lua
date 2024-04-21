@@ -1,12 +1,22 @@
 OBSTACLE_THRESHOLD = 0.1
 LIGHT_THRESHOLD = 0.55
-MAX_VELOCITY = 15
+MAX_VELOCITY = 10
 MOVE_STEPS = 200
+
+function limit_velocity(v)
+    if v > MAX_VELOCITY then
+      return MAX_VELOCITY
+    elseif v < -MAX_VELOCITY then
+      return -MAX_VELOCITY
+    else
+      return v
+    end
+  end
 
 function init()
     left_v = robot.random.uniform(0,MAX_VELOCITY)
 	right_v = robot.random.uniform(0,MAX_VELOCITY)
-	robot.wheels.set_velocity(left_v,right_v)
+	robot.wheels.set_velocity(limit_velocity(left_v),limit_velocity(right_v))
 	n_steps = 0
 end
 
@@ -26,12 +36,12 @@ function obstacle_avoidance()
 		if max_prox > OBSTACLE_THRESHOLD then
 
             if max_prox_idx <= #robot.proximity / 2 then
-                right_v = robot.random.uniform(0,5)
+                right_v = robot.random.uniform(0,3)
             else
-                left_v = robot.random.uniform(0,5)
+                left_v = robot.random.uniform(0,3)
             end
             
-            robot.wheels.set_velocity(left_v,right_v)
+            robot.wheels.set_velocity(limit_velocity(left_v),limit_velocity(right_v))
         else 
             photo_taxis()
         end
@@ -58,7 +68,7 @@ function photo_taxis()
 		else
 			right_v = 0
 		end
-		robot.wheels.set_velocity(left_v,right_v)
+		robot.wheels.set_velocity(limit_velocity(left_v),limit_velocity(right_v))
         return true
 	else
 		explore()
@@ -68,7 +78,7 @@ end
 function explore()
     left_v = robot.random.uniform(0,MAX_VELOCITY)
     right_v = robot.random.uniform(0,MAX_VELOCITY)
-    robot.wheels.set_velocity(left_v,right_v)
+    robot.wheels.set_velocity(limit_velocity(left_v),limit_velocity(right_v))
 end
 
 function step()
@@ -82,9 +92,13 @@ end
 function reset()
     left_v = robot.random.uniform(0,MAX_VELOCITY)
 	right_v = robot.random.uniform(0,MAX_VELOCITY)
-	robot.wheels.set_velocity(left_v,right_v)
+	robot.wheels.set_velocity(limit_velocity(left_v),limit_velocity(right_v))
 	n_steps = 0
 end
 
 function destroy()
-end
+    x = robot.positioning.position.x
+    y = robot.positioning.position.y
+    d = math.sqrt((x-1.5)^2 + y^2)
+    print('f_distance ' .. d)
+  end
