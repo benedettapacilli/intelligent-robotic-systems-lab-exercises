@@ -30,7 +30,7 @@
 				<!-- <footbot_motor_ground implementation="rot_z_only" noise_level="0.0" /> -->
 				<positioning implementation="default" noise_level="0.0" />
       </sensors>
-      <params script="lab01.lua" />
+      <params script="lab02.lua" />
     </lua_controller>
  
   </controllers>
@@ -79,8 +79,8 @@
     <distribute>
       <position method="uniform" min="-2,-2,0" max="2,2,0" />
       <orientation method="uniform" min="0,0,0" max="360,0,0" />
-      <entity quantity="6" max_trials="100">
-        <box id="o" size="0.6, 0.2, 0.6" movable="false" />
+      <entity quantity="10" max_trials="100">
+        <box id="o" size="0.4, 0.2, 0.5" movable="false" />
       </entity>
     </distribute>
     
@@ -97,7 +97,7 @@
     <distribute>
       <position method="uniform" min="-1.9,-1.9,0" max="1.9,1.9,0" />
       <orientation method="uniform" min="0,0,0" max="360,0,0" />
-      <entity quantity="3" max_trials="100">
+      <entity quantity="1" max_trials="100">
         <foot-bot id="fb">
           <controller config="lua" />
         </foot-bot>

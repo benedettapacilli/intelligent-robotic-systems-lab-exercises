@@ -1,6 +1,6 @@
 MOVE_STEPS = 100
 MAX_VELOCITY = 15
-LIGHT_THRESHOLD = 0.27
+LIGHT_THRESHOLD = 0.3
 OBSTACLE_THRESHOLD = 0.1
 
 n_steps = 0
@@ -24,6 +24,22 @@ function step()
         end
     end
 
+	if max_prox_idx ~= -1 then
+        left_v = MAX_VELOCITY
+        right_v = MAX_VELOCITY
+		if max_prox > OBSTACLE_THRESHOLD then
+
+            if max_prox_idx <= #robot.proximity / 2 then
+                right_v = robot.random.uniform(0,3)
+            else
+                left_v = robot.random.uniform(0,3)
+            end
+            
+            robot.wheels.set_velocity(left_v,right_v)
+        end
+    end
+
+	--[[
     if max_prox_idx ~= -1 then
         left_v = MAX_VELOCITY - max_prox * MAX_VELOCITY
         right_v = MAX_VELOCITY - max_prox * MAX_VELOCITY
@@ -40,7 +56,8 @@ function step()
         end
         robot.wheels.set_velocity(left_v,right_v)
     end
-	
+	]]
+
 	max_value = -1
 	max_value_idx = -1
 	for i=1,#robot.light do
