@@ -88,7 +88,7 @@ function step()
     random_stop(number_robot_sensed)
     random_walk(number_robot_sensed)
     signal_presence(state)
-    if (state) then
+    if (state == 0) then
         obstacle_avoidance()
     end
     if n_steps > MOVE_STEPS then
