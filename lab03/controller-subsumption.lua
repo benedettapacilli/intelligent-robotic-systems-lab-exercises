@@ -1,6 +1,6 @@
 OBSTACLE_THRESHOLD = 0.1
 LIGHT_THRESHOLD = 0.55
-MAX_VELOCITY = 10
+MAX_VELOCITY = 15
 MOVE_STEPS = 200
 
 function limit_velocity(v)
@@ -60,7 +60,7 @@ function photo_taxis()
 
     if max_value >= LIGHT_THRESHOLD then
         robot.wheels.set_velocity(0,0)
-	elseif (max_value < LIGHT_THRESHOLD and max_value > 0) and max_value_idx ~= -1 then
+	elseif (max_value < LIGHT_THRESHOLD and max_value > 0.1) then
 		left_v = MAX_VELOCITY
 		right_v = MAX_VELOCITY
 		if max_value_idx <= #robot.light / 2 then
