@@ -62,7 +62,7 @@ function phototaxis(light_flag)
             max_angle = light_sensors[i].angle
         end
     end
-    if max_value > 0.01 then
+    if max_value > 0 then
         v = {length = limit_velocity(MAX_VELOCITY / max_value), angle = max_angle}
     else 
         v = {length = robot.random.uniform(5, MAX_VELOCITY), angle = robot.random.uniform(-math.pi, math.pi)}
