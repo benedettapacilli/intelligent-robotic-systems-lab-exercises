@@ -68,14 +68,6 @@
            intensity="1"
            medium="leds"/>
 
-<!--
-    <light id="light2"
-            position="-1.5,-1.5,0.5"
-            orientation="0,0,0"
-            color="yellow"
-            intensity="1"
-            medium="leds"/>
-            -->
     <distribute>
       <position method="uniform" min="-2,-2,0" max="2,2,0" />
       <orientation method="uniform" min="0,0,0" max="360,0,0" />
@@ -84,20 +76,10 @@
       </entity>
     </distribute>
     
-    
-<!--     Place the robot in a given precise position -->
-<!--    <foot-bot id="fb">
-      <controller config="lua" />
-      <body position="0.2,0.3,0" orientation="0,0,0" />
-    </foot-bot>-->
-
-
-<!--     If you want to place the robot(s) in a random position you may want to use this piece of code -->
-<!-- 	The number of robots can be specificed by changing the field quantity in entity -->
     <distribute>
       <position method="uniform" min="-1.9,-1.9,0" max="1.9,1.9,0" />
       <orientation method="uniform" min="0,0,0" max="360,0,0" />
-      <entity quantity="1" max_trials="100">
+      <entity quantity="2" max_trials="100">
         <foot-bot id="fb">
           <controller config="lua" />
         </foot-bot>
@@ -128,10 +110,10 @@
   <visualization>
     <qt-opengl lua_editor="false">
 		<camera>
-<!--            <placements>
-                <placement index="0" position="-2.0767,0.015,2.74921" look_at="-1.59254,0.015,1.87423" lens_focal_length="20" />
-            </placements>-->
-					<placement idx="0" position="-2.0767,0.015,2.74921" look_at="-1.59254,0.015,1.87423" lens_focal_length="20" />
+				<placements>
+					<placement index="0" position="-3.8703,0.22,3.8703" look_at="-3.16319,0.22,3.16319" lens_focal_length="30" />
+					<placement index="1" position="-0.0901378,-0.0141263,4.99426" look_at="-0.080138,-0.0141263,3.99431" lens_focal_length="30" />
+				</placements>
 			</camera>
     </qt-opengl>
   </visualization>
