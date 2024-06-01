@@ -22,7 +22,7 @@ function init()
 	n_steps = 0
 end
 
-function obstacle_avoidance()
+function obstacle_avoidance(light_flag)
     if light_flag then
         return {length = 0, angle = 0}
     end
