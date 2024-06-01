@@ -30,6 +30,7 @@ function obstacle_avoidance()
         end
     end
     if max_value ~= -1 then
+        if index 
         if index <= #robot.proximity / 2 then
             v = {length = MAX_VELOCITY, angle = max_angle - math.pi}
         else
@@ -54,8 +55,10 @@ function phototaxis(light_flag)
             max_angle = light_sensors[i].angle
         end
     end
-    if max_value ~= -1 then
+    if max_value_idx ~= -1 and (max_value < LIGHT_THRESHOLD and max_value > 0) then
         v = {length = MAX_VELOCITY, angle = max_angle} -- max_value * 
+    else 
+        v = {length = robot.random.uniform(0, MAX_VELOCITY), angle = robot.random.uniform(-math.pi, math.pi)}
     end
     return v
 end
