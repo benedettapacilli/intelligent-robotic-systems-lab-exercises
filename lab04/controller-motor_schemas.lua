@@ -1,8 +1,18 @@
-MAX_VELOCITY = 10
+MAX_VELOCITY = 15
 MOVE_STEPS = 200
 LIGHT_THRESHOLD = 0.55
 
 vector = require("vector")
+
+function limit_velocity(v)
+    if v > MAX_VELOCITY then
+      return MAX_VELOCITY
+    elseif v < -MAX_VELOCITY then
+      return -MAX_VELOCITY
+    else
+      return v
+    end
+end
 
 function init()
     left_v = robot.random.uniform(0,MAX_VELOCITY)
@@ -14,8 +24,7 @@ end
 
 function obstacle_avoidance()
     if light_flag then
-        v = {length = 0, angle = 0}
-        return v
+        return {length = 0, angle = 0}
     end
     proximity_sensors = robot.proximity
     max_value = -1
@@ -26,15 +35,14 @@ function obstacle_avoidance()
         if proximity_sensors[i].value > max_value then
             max_value = proximity_sensors[i].value
             max_angle = proximity_sensors[i].angle
-            index = 1
+            index = i
         end
     end
     if max_value ~= -1 then
-        if index 
         if index <= #robot.proximity / 2 then
-            v = {length = MAX_VELOCITY, angle = max_angle - math.pi}
+            v = {length = MAX_VELOCITY * max_value, angle = max_angle - (math.pi/2)}
         else
-            v = {length = MAX_VELOCITY, angle = max_angle + math.pi}
+            v = {length = MAX_VELOCITY * max_value, angle = max_angle + (math.pi/2)}
         end
     end
     return v
@@ -42,8 +50,7 @@ end
 
 function phototaxis(light_flag)
     if light_flag then
-        v = {length = 0, angle = 0}
-        return v
+        return {length = 0, angle = 0}
     end
     light_sensors = robot.light
     max_value = -1
@@ -55,10 +62,10 @@ function phototaxis(light_flag)
             max_angle = light_sensors[i].angle
         end
     end
-    if max_value_idx ~= -1 and (max_value < LIGHT_THRESHOLD and max_value > 0) then
-        v = {length = MAX_VELOCITY, angle = max_angle} -- max_value * 
+    if max_value > 0.01 then
+        v = {length = limit_velocity(MAX_VELOCITY / max_value), angle = max_angle}
     else 
-        v = {length = robot.random.uniform(0, MAX_VELOCITY), angle = robot.random.uniform(-math.pi, math.pi)}
+        v = {length = robot.random.uniform(5, MAX_VELOCITY), angle = robot.random.uniform(-math.pi, math.pi)}
     end
     return v
 end
@@ -98,4 +105,8 @@ function reset()
 end
 
 function destroy()
+    x = robot.positioning.position.x
+    y = robot.positioning.position.y
+    d = math.sqrt((x-1.5)^2 + y^2)
+    print('f_distance ' .. d)
 end
