@@ -31,9 +31,9 @@ function obstacle_avoidance()
     end
     if max_value ~= -1 then
         if index <= #robot.proximity / 2 then
-            v = {length = MAX_VELOCITY, angle = max_angle + math.pi}
-        else
             v = {length = MAX_VELOCITY, angle = max_angle - math.pi}
+        else
+            v = {length = MAX_VELOCITY, angle = max_angle + math.pi}
         end
     end
     return v
