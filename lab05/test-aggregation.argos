@@ -89,15 +89,11 @@
     <!-- * To activate the Lua editor, just use the 'lua_editor' flag attribute * -->
     <!-- ************************************************************************ -->
     <qt-opengl lua_editor="false">
-      <camera>
-        <placement idx="0" position="-0.00569879,0.01,4.86243" look_at="-0.00569879,0.01,3.86243" lens_focal_length="20" />
-        <placement idx="1" position="-2,0,2" look_at="0,0,0" lens_focal_length="20" />
-        <placement idx="2" position="0.884183,0.359128,0.490269" look_at="0.924486,-0.486744,-0.0415919" lens_focal_length="20" />
-      </camera>
 
       <camera>
 				<placements>
-					<placement index="0" position="0,0,10" look_at="0,0,0" up="1,0,0" lens_focal_length="40" />
+					<placement index="0" position="-3.8703,0.22,3.8703" look_at="-3.16319,0.22,3.16319" lens_focal_length="20" />
+					<placement index="1" position="-0.0901378,-0.0141263,4.99426" look_at="-0.080138,-0.0141263,3.99431" lens_focal_length="20" />
 				</placements>
       </camera>
     </qt-opengl>
